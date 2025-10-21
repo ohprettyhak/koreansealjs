@@ -1,0 +1,35 @@
+{
+  "name": "sealsvg",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunchee",
+    "test": "node test.js",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [],
+  "author": "Hak Lee <hi@haklee.me>",
+  "license": "MIT",
+  "dependencies": {
+    "opentype.js": "^1.3.4"
+  },
+  "devDependencies": {
+    "@types/opentype.js": "^1.3.8",
+    "bunchee": "^6.6.2",
+    "typescript": "^5.9.3",
+    "@biomejs/biome": "^2.2.6"
+  },
+  "packageManager": "pnpm@10.18.3"
+}
