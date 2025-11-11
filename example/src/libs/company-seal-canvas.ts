@@ -96,10 +96,10 @@ export class CompanySealCanvas {
     this.ctx.save();
 
     const size = innerR * 0.8;
-    const lineGap = size * 0.2;
+    const lineGap = size * 0.1;
 
     this.ctx.fillStyle = SEAL_COLOR;
-    this.ctx.font = `bold ${size}px ${font}`;
+    this.ctx.font = `600 ${size}px ${font}`;
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'alphabetic';
 
@@ -161,7 +161,7 @@ export class CompanySealCanvas {
     const size = ringW * 0.85;
 
     this.ctx.fillStyle = SEAL_COLOR;
-    this.ctx.font = `bold ${size}px ${font}`;
+    this.ctx.font = `600 ${size}px ${font}`;
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'alphabetic';
 
