@@ -1,0 +1,14 @@
+{
+  "name": "@koreansealjs/typescript-config",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "*.json"
+  ],
+  "exports": {
+    "./base.json": "./base.json",
+    "./node.json": "./node.json",
+    "./react.json": "./react.json",
+    "./library.json": "./library.json"
+  }
+}

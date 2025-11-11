@@ -1,13 +1,5 @@
-export interface CompanySealConfig {
-  circularText: string;
-  centerText: string;
-  sealSize: number;
-  strokeWidthRatio: number;
-  markerType: 'dot' | 'star';
-  fontFamily: string;
-}
-
-const SEAL_COLOR = '#DC2626';
+import type { CompanySealConfig } from '@koreansealjs/shared';
+import { SEAL_COLOR } from '@koreansealjs/shared';
 
 export class CompanySealCanvas {
   private readonly canvas: HTMLCanvasElement;
@@ -165,7 +157,7 @@ export class CompanySealCanvas {
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'alphabetic';
 
-    const sampleMetrics = this.ctx.measureText(text[0]);
+    const sampleMetrics = this.ctx.measureText(text[0]!);
     const ascent = sampleMetrics.actualBoundingBoxAscent;
     const descent = sampleMetrics.actualBoundingBoxDescent;
     const textCenterOffset = (ascent - descent) / 2;
@@ -175,7 +167,7 @@ export class CompanySealCanvas {
     const startAngle = -Math.PI / 2 + angleStep;
 
     for (let i = 0; i < chars.length; i++) {
-      const char = chars[i];
+      const char = chars[i]!;
       const angle = startAngle + angleStep * i;
       const x = cx + midR * Math.cos(angle);
       const y = cy + midR * Math.sin(angle);

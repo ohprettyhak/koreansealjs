@@ -5,13 +5,17 @@
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "node:simple": "tsx node-example-simple.ts",
+    "node:full": "tsx node-example.ts"
   },
   "dependencies": {
     "next": "16.0.2-canary.14",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "sealsvg": "workspace:*"
+    "@koreansealjs/core": "workspace:*",
+    "@koreansealjs/react": "workspace:*",
+    "@napi-rs/canvas": "^0.1.70"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.17",
@@ -20,6 +24,7 @@
     "@types/react-dom": "^19.2.2",
     "babel-plugin-react-compiler": "^1.0.0",
     "tailwindcss": "^4.1.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3"
   }
 }

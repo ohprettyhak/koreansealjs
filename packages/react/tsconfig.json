@@ -1,0 +1,10 @@
+{
+  "extends": "@koreansealjs/typescript-config/react.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "include": ["src/**/*"],
+  "references": [{ "path": "../shared" }]
+}

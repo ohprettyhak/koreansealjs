@@ -1,0 +1,26 @@
+{
+  "name": "@koreansealjs/shared",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunchee",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@koreansealjs/typescript-config": "workspace:*",
+    "bunchee": "^6.6.2",
+    "typescript": "^5.9.3"
+  }
+}

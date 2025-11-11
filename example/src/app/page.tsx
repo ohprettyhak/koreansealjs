@@ -1,7 +1,7 @@
 'use client';
 
+import { CompanySealCanvas, type CompanySealConfig } from '@koreansealjs/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { CompanySealCanvas, type CompanySealConfig } from '~/libs/company-seal-canvas';
 
 export default function Page() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -57,7 +57,6 @@ export default function Page() {
         </h1>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {/* 설정 패널 */}
           <div className="rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-4 font-semibold text-gray-800 text-xl">설정</h2>
 
@@ -189,7 +188,6 @@ export default function Page() {
             </div>
           </div>
 
-          {/* 캔버스 미리보기 */}
           <div className="rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-4 font-semibold text-gray-800 text-xl">미리보기</h2>
             <div className="flex min-h-[400px] items-center justify-center rounded-lg bg-gray-100 p-8">
