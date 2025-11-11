@@ -42,21 +42,18 @@ export class CompanySealCanvas {
       }
 
       const strokeWidth = sealSize * strokeWidthRatio;
+      const canvasSize = Math.ceil(sealSize + strokeWidth);
 
-      const { width: w, height: h } = this.canvas;
-
-      if (w <= 0 || h <= 0) {
-        throw new Error('Canvas width and height must be greater than 0');
-      }
+      this.canvas.width = canvasSize;
+      this.canvas.height = canvasSize;
 
       this.ctx.save();
 
-      this.ctx.clearRect(0, 0, w, h);
       this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(0, 0, w, h);
+      this.ctx.fillRect(0, 0, canvasSize, canvasSize);
 
-      const cx = w / 2;
-      const cy = h / 2;
+      const cx = canvasSize / 2;
+      const cy = canvasSize / 2;
       const outerR = sealSize / 2 - strokeWidth / 2;
       const innerR = (sealSize / 2) * 0.5;
 

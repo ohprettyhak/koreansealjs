@@ -193,12 +193,7 @@ export default function Page() {
           <div className="rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-4 font-semibold text-gray-800 text-xl">미리보기</h2>
             <div className="flex min-h-[400px] items-center justify-center rounded-lg bg-gray-100 p-8">
-              <canvas
-                ref={canvasRef}
-                width={config.sealSize + 100}
-                height={config.sealSize + 100}
-                className="h-auto max-w-full"
-              />
+              <canvas ref={canvasRef} className="h-auto max-w-full" />
             </div>
           </div>
         </div>
