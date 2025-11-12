@@ -40,12 +40,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.70",
-    "@koreansealjs/shared": "workspace:*"
+    "@koreansealjs/shared": "workspace:*",
+    "@napi-rs/canvas": "^0.1.82"
   },
   "devDependencies": {
     "@koreansealjs/typescript-config": "workspace:*",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "bunchee": "^6.6.2",
     "typescript": "^5.9.3"
   },

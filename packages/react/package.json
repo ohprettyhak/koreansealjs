@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@koreansealjs/typescript-config": "workspace:*",
-    "@types/react": "^19.2.2",
+    "@types/react": "^19.2.3",
     "bunchee": "^6.6.2",
     "typescript": "^5.9.3"
   },
