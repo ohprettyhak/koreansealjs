@@ -162,6 +162,26 @@ export default function Page() {
                 <p className="mt-1 text-gray-500 text-xs">시스템에 설치된 폰트명을 입력하세요</p>
               </div>
 
+              <div>
+                <label className="mb-1 block font-medium text-gray-700 text-sm">색상 (color)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="color"
+                    value={config.color || '#DC2626'}
+                    onChange={e => setConfig({ ...config, color: e.target.value })}
+                    className="h-10 w-20 cursor-pointer rounded-md border border-gray-300"
+                  />
+                  <input
+                    type="text"
+                    value={config.color || '#DC2626'}
+                    onChange={e => setConfig({ ...config, color: e.target.value })}
+                    className="flex-1 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="#DC2626"
+                  />
+                </div>
+                <p className="mt-1 text-gray-500 text-xs">기본값: #DC2626 (빨간색)</p>
+              </div>
+
               {error && (
                 <div className="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm">
                   {error}

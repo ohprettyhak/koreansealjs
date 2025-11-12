@@ -1,1 +1,1 @@
-export const SEAL_COLOR = '#DC2626';
+export const DEFAULT_SEAL_COLOR = '#DC2626';

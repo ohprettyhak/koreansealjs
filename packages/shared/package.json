@@ -15,8 +15,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "bunchee",
-    "prepublishOnly": "pnpm run build"
+    "build": "bunchee"
   },
   "devDependencies": {
     "@koreansealjs/typescript-config": "workspace:*",

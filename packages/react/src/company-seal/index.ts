@@ -1,5 +1,5 @@
 import type { CompanySealConfig } from '@koreansealjs/shared';
-import { SEAL_COLOR } from '@koreansealjs/shared';
+import { DEFAULT_SEAL_COLOR } from '@koreansealjs/shared';
 
 export class CompanySealCanvas {
   private readonly canvas: HTMLCanvasElement;
@@ -22,8 +22,15 @@ export class CompanySealCanvas {
     try {
       await document.fonts.ready;
 
-      const { circularText, centerText, sealSize, strokeWidthRatio, markerType, fontFamily } =
-        config;
+      const {
+        circularText,
+        centerText,
+        sealSize,
+        strokeWidthRatio,
+        markerType,
+        fontFamily,
+        color = DEFAULT_SEAL_COLOR,
+      } = config;
 
       if (sealSize <= 0 || !Number.isFinite(sealSize)) {
         throw new Error('sealSize must be a positive finite number');
@@ -53,16 +60,16 @@ export class CompanySealCanvas {
       const innerOuterEdge = innerR + strokeWidth / 2;
       const midR = (outerInnerEdge + innerOuterEdge) / 2;
 
-      this.drawCircle(cx, cy, outerR, strokeWidth);
-      this.drawCircle(cx, cy, innerR, strokeWidth);
+      this.drawCircle(cx, cy, outerR, strokeWidth, color);
+      this.drawCircle(cx, cy, innerR, strokeWidth, color);
 
-      this.drawCenterText(centerText, cx, cy, innerR, fontFamily);
+      this.drawCenterText(centerText, cx, cy, innerR, fontFamily, color);
 
       const ringW = outerInnerEdge - innerOuterEdge;
       const textSize = ringW * 0.85;
-      this.drawMarker(markerType, cx, cy - midR, textSize);
+      this.drawMarker(markerType, cx, cy - midR, textSize, color);
 
-      this.drawCircularText(circularText, cx, cy, midR, ringW, fontFamily);
+      this.drawCircularText(circularText, cx, cy, midR, ringW, fontFamily, color);
 
       this.ctx.restore();
     } catch (error) {
@@ -72,9 +79,9 @@ export class CompanySealCanvas {
     }
   }
 
-  private drawCircle(x: number, y: number, r: number, w: number): void {
+  private drawCircle(x: number, y: number, r: number, w: number, color: string): void {
     this.ctx.save();
-    this.ctx.strokeStyle = SEAL_COLOR;
+    this.ctx.strokeStyle = color;
     this.ctx.lineWidth = w;
     this.ctx.beginPath();
     this.ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -82,7 +89,14 @@ export class CompanySealCanvas {
     this.ctx.restore();
   }
 
-  private drawCenterText(text: string, cx: number, cy: number, innerR: number, font: string): void {
+  private drawCenterText(
+    text: string,
+    cx: number,
+    cy: number,
+    innerR: number,
+    font: string,
+    color: string,
+  ): void {
     if (!text || !text.trim()) return;
 
     this.ctx.save();
@@ -90,7 +104,7 @@ export class CompanySealCanvas {
     const size = innerR * 0.8;
     const lineGap = size * 0.1;
 
-    this.ctx.fillStyle = SEAL_COLOR;
+    this.ctx.fillStyle = color;
     this.ctx.font = `600 ${size}px ${font}`;
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'alphabetic';
@@ -113,9 +127,15 @@ export class CompanySealCanvas {
     this.ctx.restore();
   }
 
-  private drawMarker(type: 'dot' | 'star', x: number, y: number, size: number): void {
+  private drawMarker(
+    type: 'dot' | 'star',
+    x: number,
+    y: number,
+    size: number,
+    color: string,
+  ): void {
     this.ctx.save();
-    this.ctx.fillStyle = SEAL_COLOR;
+    this.ctx.fillStyle = color;
 
     if (type === 'star') {
       this.ctx.translate(x, y);
@@ -145,6 +165,7 @@ export class CompanySealCanvas {
     midR: number,
     ringW: number,
     font: string,
+    color: string,
   ): void {
     if (!text || !text.trim()) return;
 
@@ -152,7 +173,7 @@ export class CompanySealCanvas {
 
     const size = ringW * 0.85;
 
-    this.ctx.fillStyle = SEAL_COLOR;
+    this.ctx.fillStyle = color;
     this.ctx.font = `600 ${size}px ${font}`;
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'alphabetic';

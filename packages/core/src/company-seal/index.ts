@@ -1,11 +1,11 @@
 import type { CompanySealConfig } from '@koreansealjs/shared';
-import { SEAL_COLOR } from '@koreansealjs/shared';
+import { DEFAULT_SEAL_COLOR } from '@koreansealjs/shared';
 import type { Canvas, SKRSContext2D } from '@napi-rs/canvas';
 import { createCanvas } from '@napi-rs/canvas';
 
 export class CompanySeal {
   private canvas: Canvas;
-  private ctx: SKRSContext2D;
+  private readonly ctx: SKRSContext2D;
 
   constructor(width: number, height: number) {
     this.canvas = createCanvas(width, height);
@@ -14,8 +14,15 @@ export class CompanySeal {
 
   async draw(config: CompanySealConfig): Promise<void> {
     try {
-      const { circularText, centerText, sealSize, strokeWidthRatio, markerType, fontFamily } =
-        config;
+      const {
+        circularText,
+        centerText,
+        sealSize,
+        strokeWidthRatio,
+        markerType,
+        fontFamily,
+        color = DEFAULT_SEAL_COLOR,
+      } = config;
 
       if (sealSize <= 0 || !Number.isFinite(sealSize)) {
         throw new Error('sealSize must be a positive finite number');
@@ -46,16 +53,16 @@ export class CompanySeal {
       const innerOuterEdge = innerR + strokeWidth / 2;
       const midR = (outerInnerEdge + innerOuterEdge) / 2;
 
-      this.drawCircle(ctx, cx, cy, outerR, strokeWidth);
-      this.drawCircle(ctx, cx, cy, innerR, strokeWidth);
+      this.drawCircle(ctx, cx, cy, outerR, strokeWidth, color);
+      this.drawCircle(ctx, cx, cy, innerR, strokeWidth, color);
 
-      this.drawCenterText(ctx, centerText, cx, cy, innerR, fontFamily);
+      this.drawCenterText(ctx, centerText, cx, cy, innerR, fontFamily, color);
 
       const ringW = outerInnerEdge - innerOuterEdge;
       const textSize = ringW * 0.85;
-      this.drawMarker(ctx, markerType, cx, cy - midR, textSize);
+      this.drawMarker(ctx, markerType, cx, cy - midR, textSize, color);
 
-      this.drawCircularText(ctx, circularText, cx, cy, midR, ringW, fontFamily);
+      this.drawCircularText(ctx, circularText, cx, cy, midR, ringW, fontFamily, color);
 
       ctx.restore();
     } catch (error) {
@@ -65,9 +72,16 @@ export class CompanySeal {
     }
   }
 
-  private drawCircle(ctx: SKRSContext2D, x: number, y: number, r: number, w: number): void {
+  private drawCircle(
+    ctx: SKRSContext2D,
+    x: number,
+    y: number,
+    r: number,
+    w: number,
+    color: string,
+  ): void {
     ctx.save();
-    ctx.strokeStyle = SEAL_COLOR;
+    ctx.strokeStyle = color;
     ctx.lineWidth = w;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -82,6 +96,7 @@ export class CompanySeal {
     cy: number,
     innerR: number,
     font: string,
+    color: string,
   ): void {
     if (!text || !text.trim()) return;
 
@@ -90,7 +105,7 @@ export class CompanySeal {
     const size = innerR * 0.8;
     const lineGap = size * 0.1;
 
-    ctx.fillStyle = SEAL_COLOR;
+    ctx.fillStyle = color;
     ctx.font = `600 ${size}px ${font}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
@@ -119,9 +134,10 @@ export class CompanySeal {
     x: number,
     y: number,
     size: number,
+    color: string,
   ): void {
     ctx.save();
-    ctx.fillStyle = SEAL_COLOR;
+    ctx.fillStyle = color;
 
     if (type === 'star') {
       ctx.translate(x, y);
@@ -152,6 +168,7 @@ export class CompanySeal {
     midR: number,
     ringW: number,
     font: string,
+    color: string,
   ): void {
     if (!text || !text.trim()) return;
 
@@ -159,7 +176,7 @@ export class CompanySeal {
 
     const size = ringW * 0.85;
 
-    ctx.fillStyle = SEAL_COLOR;
+    ctx.fillStyle = color;
     ctx.font = `600 ${size}px ${font}`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'alphabetic';
