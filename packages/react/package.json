@@ -1,6 +1,6 @@
 {
   "name": "@koreansealjs/react",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React/Browser canvas-based Korean seal generator",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
