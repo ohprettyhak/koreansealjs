@@ -7,7 +7,8 @@
     "test": "pnpm -r test",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "release": "turbo run build && changeset publish"
   },
   "keywords": [
     "seal",
