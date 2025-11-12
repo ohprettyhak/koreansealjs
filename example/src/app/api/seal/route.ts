@@ -7,9 +7,9 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const circularText = searchParams.get('circularText') || '주식회사 예제';
-    const centerText = searchParams.get('centerText') || '인';
-    const sealSize = Number.parseFloat(searchParams.get('sealSize') || '500');
-    const strokeWidthRatio = Number.parseFloat(searchParams.get('strokeWidthRatio') || '0.033');
+    const centerText = searchParams.get('centerText') || '대표이사';
+    const sealSize = Number.parseFloat(searchParams.get('sealSize') || '300');
+    const strokeWidthRatio = Number.parseFloat(searchParams.get('strokeWidthRatio') || '0.02');
     const markerType = (searchParams.get('markerType') || 'dot') as 'dot' | 'star';
     const fontFamily = searchParams.get('fontFamily') || 'Arial';
 

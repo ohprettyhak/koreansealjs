@@ -1,7 +1,7 @@
 {
   "name": "@koreansealjs/react",
-  "version": "0.0.1",
-  "description": "React/Browser canvas-based Korean seal generator (company & personal)",
+  "version": "0.0.0",
+  "description": "React/Browser canvas-based Korean seal generator",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -17,6 +17,27 @@
   ],
   "scripts": {
     "build": "bunchee"
+  },
+  "keywords": [
+    "seal",
+    "korean",
+    "canvas",
+    "company-seal",
+    "react",
+    "browser"
+  ],
+  "author": "Hak Lee <hi@haklee.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohprettyhak/koreansealjs.git"
+  },
+  "homepage": "https://koreanseal.js.org",
+  "bugs": {
+    "url": "https://github.com/ohprettyhak/koreansealjs/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@koreansealjs/shared": "workspace:*"
