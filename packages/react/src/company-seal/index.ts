@@ -97,7 +97,7 @@ export class CompanySealCanvas {
     font: string,
     color: string,
   ): void {
-    if (!text || !text.trim()) return;
+    if (!text || text.trim().length === 0) return;
 
     this.ctx.save();
 
@@ -167,7 +167,7 @@ export class CompanySealCanvas {
     font: string,
     color: string,
   ): void {
-    if (!text || !text.trim()) return;
+    if (!text || text.trim().length === 0) return;
 
     this.ctx.save();
 

@@ -98,7 +98,7 @@ export class CompanySeal {
     font: string,
     color: string,
   ): void {
-    if (!text || !text.trim()) return;
+    if (!text || text.trim().length === 0) return;
 
     ctx.save();
 
@@ -170,7 +170,7 @@ export class CompanySeal {
     font: string,
     color: string,
   ): void {
-    if (!text || !text.trim()) return;
+    if (!text || text.trim().length === 0) return;
 
     ctx.save();
 
