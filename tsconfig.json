@@ -1,23 +1,18 @@
 {
+  "extends": "@koreansealjs/typescript-config/base.json",
   "compilerOptions": {
-    "target": "es2018",
-    "lib": ["es2018"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@koreansealjs/shared": ["./packages/shared/src"],
+      "@koreansealjs/core": ["./packages/core/src"],
+      "@koreansealjs/react": ["./packages/react/src"]
+    }
   },
-  "include": [
-    "src/index.ts",
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "test.ts",
-    "test.js"
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules", "dist", "packages", "tooling", "example"],
+  "references": [
+    { "path": "./packages/shared" },
+    { "path": "./packages/core" },
+    { "path": "./packages/react" }
   ]
 }

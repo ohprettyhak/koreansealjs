@@ -1,16 +1,8 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**/*.ts", "**/*.tsx", "**/*.json"],
-    "experimentalScannerIgnores": [
-      "node_modules/**",
-      "dist/**",
-      "lib/**",
-      ".turbo/**",
-      ".next/**",
-      "pnpm-lock.yaml"
-    ]
+    "includes": ["**/*.ts", "**/*.tsx", "**/*.json"]
   },
   "vcs": {
     "enabled": true,

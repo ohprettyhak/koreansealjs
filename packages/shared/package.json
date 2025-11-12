@@ -1,0 +1,45 @@
+{
+  "name": "@koreansealjs/shared",
+  "version": "0.0.0",
+  "description": "Shared types and constants for @koreansealjs packages",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunchee"
+  },
+  "keywords": [
+    "seal",
+    "korean",
+    "canvas",
+    "company-seal"
+  ],
+  "author": "Hak Lee <hi@haklee.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohprettyhak/koreansealjs.git"
+  },
+  "homepage": "https://koreanseal.js.org",
+  "bugs": {
+    "url": "https://github.com/ohprettyhak/koreansealjs/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@koreansealjs/typescript-config": "workspace:*",
+    "bunchee": "^6.6.2",
+    "typescript": "^5.9.3"
+  }
+}

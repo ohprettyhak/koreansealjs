@@ -1,0 +1,55 @@
+{
+  "name": "@koreansealjs/core",
+  "version": "0.0.0",
+  "description": "Node.js canvas-based Korean seal generator",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunchee"
+  },
+  "keywords": [
+    "seal",
+    "korean",
+    "canvas",
+    "company-seal",
+    "nodejs",
+    "server"
+  ],
+  "author": "Hak Lee <hi@haklee.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohprettyhak/koreansealjs.git"
+  },
+  "homepage": "https://koreanseal.js.org",
+  "bugs": {
+    "url": "https://github.com/ohprettyhak/koreansealjs/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.70",
+    "@koreansealjs/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@koreansealjs/typescript-config": "workspace:*",
+    "@types/node": "^24.10.0",
+    "bunchee": "^6.6.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
