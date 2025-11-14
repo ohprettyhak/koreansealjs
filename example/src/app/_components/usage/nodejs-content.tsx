@@ -57,7 +57,7 @@ export const NodejsContent = async () => {
         <CodeBlock html={usageHtml} />
       </div>
 
-      <div>
+      <div className="border-l-4 border-neutral-400 bg-neutral-50 pl-4 py-1">
         <h3 className="mb-3 font-semibold text-base">Next.js API Routes 사용 시</h3>
         <p className="mb-3 font-medium text-neutral-600 text-sm">
           Next.js의 API Routes(Serverless Function)에서 사용하는 경우,{' '}

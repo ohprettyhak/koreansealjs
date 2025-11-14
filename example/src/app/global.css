@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     color: var(--color-neutral-950);
-    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    font-family: var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.005em;
     -webkit-font-smoothing: antialiased;
@@ -18,6 +18,10 @@
     overflow-x: hidden;
     scrollbar-gutter: stable;
     background-color: var(--color-white);
+  }
+
+  code {
+    font-family: var(--font-geist-mono), Courier, var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', monospace;
   }
 
   .transparent-layer {

@@ -3,7 +3,7 @@ import './global.css';
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Pretendard } from './_fonts';
+import { GeistMono, Pretendard } from './_fonts';
 
 export const metadata: Metadata = {
   title: '@koreansealjs',
@@ -14,7 +14,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
       <body
-        className={twMerge('mx-auto max-w-4xl p-4 pt-20 md:p-8 md:pt-24', Pretendard.className)}
+        className={twMerge(
+          'mx-auto max-w-4xl p-4 pt-20 md:p-8 md:pt-24',
+          Pretendard.variable,
+          GeistMono.variable,
+        )}
       >
         {children}
       </body>

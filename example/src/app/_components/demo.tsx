@@ -1,7 +1,7 @@
 'use client';
 
 import type { CompanySealConfig } from '@koreansealjs/core';
-import { CompanySealCanvas } from '@koreansealjs/react';
+import { CompanySeal } from '@koreansealjs/react';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Input, Select, Slider } from '~/components/ui';
 
@@ -25,7 +25,7 @@ export const Demo = () => {
     const drawSeal = async () => {
       setError(null);
       try {
-        const seal = new CompanySealCanvas(canvasRef.current!);
+        const seal = new CompanySeal(canvasRef.current!);
         await seal.draw(config);
       } catch (err) {
         setError(err instanceof Error ? err.message : '도장 그리기 실패');
@@ -40,7 +40,7 @@ export const Demo = () => {
     if (!canvasRef.current) return;
 
     try {
-      const seal = new CompanySealCanvas(canvasRef.current);
+      const seal = new CompanySeal(canvasRef.current);
       const filename = config.circularText.trim() || 'company-seal';
       const sanitizedFilename = filename.replace(/[<>:"/\\|?*]/g, '').trim() || 'company-seal';
       seal.exportToPNG(`${sanitizedFilename}.png`);

@@ -3,7 +3,7 @@ import { CodeBlock } from '~/components/ui';
 
 const installCode = 'npm install @koreansealjs/react';
 
-const usageCode = `import { CompanySealCanvas } from '@koreansealjs/react';
+const usageCode = `import { CompanySeal } from '@koreansealjs/react';
 import { useEffect, useRef } from 'react';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     if (!canvasRef.current) return;
 
     const drawSeal = async () => {
-      const seal = new CompanySealCanvas(canvasRef.current!);
+      const seal = new CompanySeal(canvasRef.current!);
       await seal.draw({
         circularText: '주식회사 예제',
         centerText: '대표이사',

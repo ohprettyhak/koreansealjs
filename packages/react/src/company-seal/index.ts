@@ -1,7 +1,7 @@
 import type { CompanySealConfig } from '@koreansealjs/shared';
 import { DEFAULT_SEAL_COLOR } from '@koreansealjs/shared';
 
-export class CompanySealCanvas {
+export class CompanySeal {
   private readonly canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
