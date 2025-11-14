@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
 
 function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  
   useEffect(() => {
     if (!canvasRef.current) return;
 

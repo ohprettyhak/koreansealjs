@@ -28,9 +28,7 @@ const Page = async ({ searchParams }: PageProps) => {
       </div>
 
       <div className="border-2 border-neutral-200 bg-neutral-50 p-4 md:p-6">
-        <h2 className="pb-2 font-semibold text-lg">
-          시작하기
-        </h2>
+        <h2 className="pb-2 font-semibold text-lg">시작하기</h2>
 
         <Usage tab={usage}>
           <BrowserContent />

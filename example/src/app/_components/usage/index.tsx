@@ -26,4 +26,3 @@ export const Usage = ({ tab, children }: UsageProps) => {
     </Tabs.Root>
   );
 };
-
