@@ -9,7 +9,9 @@
     }
   },
   "include": ["src/index.ts"],
-  "exclude": ["node_modules", "dist", "packages", "tooling", "example"],
+  "exclude": ["node_modules", "dist", "packages", "tooling",
+    "example"
+  ],
   "references": [
     { "path": "./packages/shared" },
     { "path": "./packages/core" },

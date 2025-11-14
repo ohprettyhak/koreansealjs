@@ -41,9 +41,6 @@ export class CompanySeal {
       const ctx = this.ctx;
       ctx.save();
 
-      ctx.fillStyle = 'white';
-      ctx.fillRect(0, 0, canvasSize, canvasSize);
-
       const cx = canvasSize / 2;
       const cy = canvasSize / 2;
       const outerR = sealSize / 2 - strokeWidth / 2;
