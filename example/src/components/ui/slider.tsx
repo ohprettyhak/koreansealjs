@@ -1,7 +1,7 @@
 'use client';
 
 import * as SliderPrimitive from '@radix-ui/react-slider';
-import { type ComponentProps, useMemo } from 'react';
+import type { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export const Slider = ({
@@ -12,11 +12,6 @@ export const Slider = ({
   max = 100,
   ...props
 }: ComponentProps<typeof SliderPrimitive.Root>) => {
-  const _values = useMemo(
-    () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
-    [value, defaultValue, min, max],
-  );
-
   return (
     <SliderPrimitive.Root
       data-slot="slider"
@@ -32,22 +27,18 @@ export const Slider = ({
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="relative h-1.5 w-full grow overflow-hidden bg-neutral-200"
+        className="relative h-1.5 w-full grow overflow-hidden border border-neutral-300 bg-neutral-100"
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="absolute h-full bg-neutral-500"
+          className="absolute h-full bg-neutral-950"
         />
       </SliderPrimitive.Track>
 
-      {Array.from({ length: _values.length }, (_, index) => (
-        <SliderPrimitive.Thumb
-          // biome-ignore lint/suspicious/noArrayIndexKey: index is fine here
-          key={index}
-          data-slot="slider-thumb"
-          className="block size-4 shrink-0 cursor-pointer rounded-full border border-neutral-400 bg-white shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-1 focus-visible:outline-hidden focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50"
-        />
-      ))}
+      <SliderPrimitive.Thumb
+        data-slot="slider-thumb"
+        className="block size-4 shrink-0 cursor-pointer border border-neutral-950 bg-white shadow-sm transition-[transform,box-shadow] hover:scale-105 focus-visible:scale-110 focus-visible:shadow-md focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
+      />
     </SliderPrimitive.Root>
   );
 };

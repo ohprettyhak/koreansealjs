@@ -3,7 +3,7 @@
 import type { CompanySealConfig } from '@koreansealjs/core';
 import { CompanySealCanvas } from '@koreansealjs/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Slider } from '~/components/ui';
+import { Button, Input, Select, Slider } from '~/components/ui';
 
 export const Demo = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,37 +53,112 @@ export const Demo = () => {
 
   return (
     <div className="flex flex-col gap-4 md:flex-row">
-      <div className="flex h-fit flex-1 flex-col gap-3 border-2 border-neutral-400 p-4">
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <div className="flex flex-col gap-0.5">
-            <label className="font-medium text-neutral-600 text-xs">원형 텍스트</label>
-            <input className="border border-neutral-300 bg-neutral-100 px-2 py-1 text-neutral-950 text-sm" />
+      {/* Settings Panel - Primary Card */}
+      <div className="card-primary flex h-fit flex-1 flex-col gap-4 p-4">
+        {/* Input Fields Grid */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label className="label-base">원형 텍스트</label>
+            <Input
+              value={config.circularText}
+              onChange={e => setConfig(prev => ({ ...prev, circularText: e.target.value }))}
+            />
           </div>
 
-          <div className="flex flex-col gap-0.5">
-            <label className="font-medium text-neutral-600 text-xs">중앙 텍스트</label>
-            <input className="border border-neutral-300 bg-neutral-100 px-2 py-1 text-neutral-950 text-sm" />
+          <div className="flex flex-col gap-1.5">
+            <label className="label-base">중앙 텍스트</label>
+            <Input
+              value={config.centerText}
+              onChange={e => setConfig(prev => ({ ...prev, centerText: e.target.value }))}
+            />
           </div>
 
-          <div className="flex flex-col gap-0.5">
-            <label className="font-medium text-neutral-600 text-xs">시작 기호</label>
-            <select className="border border-neutral-300 bg-neutral-100 px-2 py-1 text-neutral-950 text-sm" />
+          <div className="flex flex-col gap-1.5">
+            <label className="label-base">시작 기호</label>
+            <Select
+              value={config.markerType}
+              onChange={e =>
+                setConfig(prev => ({
+                  ...prev,
+                  markerType: e.target.value as 'dot' | 'star',
+                }))
+              }
+            >
+              <option value="dot">점</option>
+              <option value="star">별</option>
+            </Select>
           </div>
 
-          <div className="flex flex-col gap-0.5">
-            <label className="font-medium text-neutral-600 text-xs">폰트</label>
-            <select className="border border-neutral-300 bg-neutral-100 px-2 py-1 text-neutral-950 text-sm" />
+          <div className="flex flex-col gap-1.5">
+            <label className="label-base">폰트</label>
+            <Select
+              value={config.fontFamily}
+              onChange={e => setConfig(prev => ({ ...prev, fontFamily: e.target.value }))}
+            >
+              <option value="Noto Serif KR">Noto Serif KR</option>
+              <option value="Arial">Arial</option>
+              <option value="Times New Roman">Times New Roman</option>
+            </Select>
           </div>
         </div>
 
-        <Slider />
+        {/* Slider Controls */}
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <label className="label-base">도장 크기</label>
+              <span className="text-secondary text-xs tabular-nums">{config.sealSize}px</span>
+            </div>
+            <Slider
+              value={[config.sealSize]}
+              onValueChange={values => setConfig(prev => ({ ...prev, sealSize: values[0] }))}
+              min={50}
+              max={300}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <label className="label-base">선 두께</label>
+              <span className="text-secondary text-xs tabular-nums">
+                {config.strokeWidthRatio.toFixed(3)}
+              </span>
+            </div>
+            <Slider
+              value={[config.strokeWidthRatio]}
+              onValueChange={values =>
+                setConfig(prev => ({ ...prev, strokeWidthRatio: values[0] }))
+              }
+              min={0.01}
+              max={0.1}
+              step={0.001}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="h-fit shrink-0 border-2 border-neutral-500 bg-white p-4">
-        <p className="mb-3 font-semibold">미리보기</p>
-        <div className="transparent-layer size-fit p-2">
+      {/* Preview Panel - Card Preview */}
+      <div className="card-preview flex h-fit shrink-0 flex-col gap-4 p-4 md:w-80">
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold text-base text-primary">미리보기</h2>
+          {error && <span className="text-red-600 text-xs">오류</span>}
+        </div>
+
+        {/* Canvas Container */}
+        <div className="transparent-layer flex items-center justify-center p-4">
           <canvas ref={canvasRef} />
         </div>
+
+        {/* Export Button */}
+        <Button type="button" onClick={exportPNG} disabled={isDrawing || !!error}>
+          PNG로 내보내기
+        </Button>
+
+        {error && (
+          <div className="card-secondary p-3">
+            <p className="text-red-600 text-xs">{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );
