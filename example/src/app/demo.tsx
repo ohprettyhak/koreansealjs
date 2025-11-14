@@ -57,7 +57,7 @@ export const Demo = () => {
       <div className="card-primary flex h-fit flex-1 flex-col gap-4 p-4">
         {/* Input Fields Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="label-base">원형 텍스트</label>
             <Input
               value={config.circularText}
@@ -65,7 +65,7 @@ export const Demo = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="label-base">중앙 텍스트</label>
             <Input
               value={config.centerText}
@@ -73,7 +73,7 @@ export const Demo = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="label-base">시작 기호</label>
             <Select
               value={config.markerType}
@@ -89,7 +89,7 @@ export const Demo = () => {
             </Select>
           </div>
 
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <label className="label-base">폰트</label>
             <Select
               value={config.fontFamily}
@@ -104,7 +104,7 @@ export const Demo = () => {
 
         {/* Slider Controls */}
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
               <label className="label-base">도장 크기</label>
               <span className="text-secondary text-xs tabular-nums">{config.sealSize}px</span>
@@ -117,7 +117,7 @@ export const Demo = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
               <label className="label-base">선 두께</label>
               <span className="text-secondary text-xs tabular-nums">
