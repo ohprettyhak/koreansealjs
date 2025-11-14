@@ -33,7 +33,6 @@
 }
 
 @layer components {
-  /* Typography */
   .text-primary {
     color: var(--color-neutral-950);
   }
@@ -46,7 +45,6 @@
     color: var(--color-neutral-500);
   }
 
-  /* Card System - Vercel Style (Sharp Edges) */
   .card-primary {
     background-color: var(--color-neutral-100);
     border: 1px solid var(--color-neutral-300);
@@ -62,7 +60,6 @@
     border: 1px solid var(--color-neutral-300);
   }
 
-  /* Label System */
   .label-base {
     font-size: 0.75rem;
     font-weight: 500;

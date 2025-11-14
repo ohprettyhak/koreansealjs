@@ -108,8 +108,8 @@ export const Demo = () => {
             <Slider
               value={[config.sealSize]}
               onValueChange={values => setConfig(prev => ({ ...prev, sealSize: values[0] }))}
-              min={50}
-              max={300}
+              min={64}
+              max={256}
             />
           </div>
 
