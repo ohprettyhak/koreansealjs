@@ -64,7 +64,7 @@ export class CompanySeal {
       ctx.restore();
     } catch (error) {
       this.ctx.restore();
-      console.error('Failed to draw seal:', error);
+      console.error('[@koreansealjs] Failed to draw seal:', error);
       throw error instanceof Error ? error : new Error('Failed to draw seal');
     }
   }

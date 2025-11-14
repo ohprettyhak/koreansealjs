@@ -18,10 +18,63 @@ export class CompanySeal {
     this.ctx = ctx;
   }
 
+  private async ensureFontLoaded(fontFamily: string): Promise<void> {
+    if (!fontFamily || document.fonts.check(`12px ${fontFamily}`)) return;
+
+    await document.fonts.ready;
+    if (document.fonts.check(`12px ${fontFamily}`)) return;
+
+    const rule = this.findFontFaceRule(fontFamily);
+    if (rule) {
+      try {
+        const fontFace = new FontFace(fontFamily, rule.src, rule.descriptors);
+        await fontFace.load();
+        document.fonts.add(fontFace);
+        return;
+      } catch (error) {
+        console.warn('[@koreansealjs] Failed to load font:', error);
+      }
+    }
+    
+    const startTime = Date.now();
+    while (!document.fonts.check(`12px ${fontFamily}`) && Date.now() - startTime < 5000) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+
+  private findFontFaceRule(
+    fontFamily: string,
+  ): { src: string; descriptors: FontFaceDescriptors } | null {
+    for (const sheet of Array.from(document.styleSheets)) {
+      try {
+        for (const rule of Array.from(sheet.cssRules || sheet.rules)) {
+          if (
+            rule instanceof CSSFontFaceRule &&
+            rule.style.getPropertyValue('font-family').replace(/['"]/g, '') === fontFamily
+          ) {
+            const src = rule.style.getPropertyValue('src');
+            const match = src.match(/url\(['"]?([^'"]+)['"]?\)/);
+            if (match) {
+              return {
+                src: `url(${match[1]})`,
+                descriptors: {
+                  weight: rule.style.getPropertyValue('font-weight') || 'normal',
+                  style: rule.style.getPropertyValue('font-style') || 'normal',
+                  display: 'swap',
+                },
+              };
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('[@koreansealjs] Failed to access stylesheet:', error);
+      }
+    }
+    return null;
+  }
+
   async draw(config: CompanySealConfig): Promise<void> {
     try {
-      await document.fonts.ready;
-
       const {
         circularText,
         centerText,
@@ -31,6 +84,8 @@ export class CompanySeal {
         fontFamily,
         color = DEFAULT_SEAL_COLOR,
       } = config;
+
+      await this.ensureFontLoaded(fontFamily);
 
       if (sealSize <= 0 || !Number.isFinite(sealSize)) {
         throw new Error('sealSize must be a positive finite number');
@@ -71,7 +126,7 @@ export class CompanySeal {
       this.ctx.restore();
     } catch (error) {
       this.ctx.restore();
-      console.error('Failed to draw seal:', error);
+      console.error('[@koreansealjs] Failed to draw seal:', error);
       throw error instanceof Error ? error : new Error('Failed to draw seal');
     }
   }
@@ -133,25 +188,30 @@ export class CompanySeal {
   ): void {
     this.ctx.save();
     this.ctx.fillStyle = color;
+    this.ctx.beginPath();
 
     if (type === 'star') {
       this.ctx.translate(x, y);
-      this.ctx.beginPath();
+      const radius = size * 0.27;
+
       for (let i = 0; i < 5; i++) {
         const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-        const r = size * 0.27;
-        const px = r * Math.cos(angle);
-        const py = r * Math.sin(angle);
-        i === 0 ? this.ctx.moveTo(px, py) : this.ctx.lineTo(px, py);
+        const px = radius * Math.cos(angle);
+        const py = radius * Math.sin(angle);
+
+        if (i === 0) {
+          this.ctx.moveTo(px, py);
+        } else {
+          this.ctx.lineTo(px, py);
+        }
       }
+
       this.ctx.closePath();
-      this.ctx.fill();
     } else {
-      this.ctx.beginPath();
       this.ctx.arc(x, y, size * 0.18, 0, Math.PI * 2);
-      this.ctx.fill();
     }
 
+    this.ctx.fill();
     this.ctx.restore();
   }
 
@@ -213,7 +273,7 @@ export class CompanySeal {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Failed to export seal:', error);
+      console.error('[@koreansealjs] Failed to export seal:', error);
       throw error instanceof Error ? error : new Error('Failed to export PNG');
     }
   }

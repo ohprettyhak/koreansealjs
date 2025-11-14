@@ -93,7 +93,7 @@ export const Demo = () => {
               onChange={e => setConfig(prev => ({ ...prev, fontFamily: e.target.value }))}
             >
               <option value="Noto Serif KR">Noto Serif KR</option>
-              <option value="Arial">Arial</option>
+              <option value="EbsHunminjeongeumSaeron">EbsHunminjeongeumSaeron</option>
               <option value="Times New Roman">Times New Roman</option>
             </Select>
           </div>

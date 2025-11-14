@@ -1,4 +1,5 @@
 import './global.css';
+import './_fonts/fonts.css';
 
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
