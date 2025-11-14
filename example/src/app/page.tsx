@@ -1,6 +1,16 @@
-import { Demo } from './demo';
+import { Demo } from './_components/demo';
+import { Usage } from './_components/usage';
+import { BrowserContent } from './_components/usage/browser-content';
+import { NodejsContent } from './_components/usage/nodejs-content';
 
-const Page = () => {
+interface PageProps {
+  searchParams: Promise<{ usage?: string }>;
+}
+
+const Page = async ({ searchParams }: PageProps) => {
+  const { usage: _usage } = await searchParams;
+  const usage = _usage === 'node' ? 'node' : 'browser';
+
   return (
     <main className="flex flex-col gap-8">
       <div className="text-center">
@@ -15,6 +25,17 @@ const Page = () => {
           데모
         </h2>
         <Demo />
+      </div>
+
+      <div className="border-2 border-neutral-200 bg-neutral-50 p-4 md:p-6">
+        <h2 className="pb-2 font-semibold text-lg">
+          시작하기
+        </h2>
+
+        <Usage tab={usage}>
+          <BrowserContent />
+          <NodejsContent />
+        </Usage>
       </div>
     </main>
   );
