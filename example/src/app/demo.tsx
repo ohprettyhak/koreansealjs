@@ -2,60 +2,57 @@
 
 import type { CompanySealConfig } from '@koreansealjs/core';
 import { CompanySealCanvas } from '@koreansealjs/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, Input, Select, Slider } from '~/components/ui';
+
+const DEFAULT_CONFIG: CompanySealConfig = {
+  circularText: '주식회사예제',
+  centerText: '株式會社',
+  sealSize: 128,
+  strokeWidthRatio: 0.02,
+  markerType: 'star',
+  fontFamily: 'Noto Serif KR',
+};
 
 export const Demo = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [config, setConfig] = useState<CompanySealConfig>({
-    circularText: '주식회사예제',
-    centerText: '대표이사',
-    sealSize: 100,
-    strokeWidthRatio: 0.02,
-    markerType: 'star',
-    fontFamily: 'Noto Serif KR',
-  });
-  const [isDrawing, setIsDrawing] = useState(false);
+  const [config, setConfig] = useState<CompanySealConfig>(DEFAULT_CONFIG);
   const [error, setError] = useState<string | null>(null);
 
-  const drawSeal = useCallback(async () => {
+  useEffect(() => {
     if (!canvasRef.current) return;
 
-    setIsDrawing(true);
-    setError(null);
+    const drawSeal = async () => {
+      setError(null);
+      try {
+        const seal = new CompanySealCanvas(canvasRef.current!);
+        await seal.draw(config);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : '도장 그리기 실패');
+        console.error(err);
+      }
+    };
 
-    try {
-      const seal = new CompanySealCanvas(canvasRef.current);
-      await seal.draw(config);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : '도장 그리기 실패');
-      console.error(err);
-    } finally {
-      setIsDrawing(false);
-    }
+    void drawSeal();
   }, [config]);
 
-  const exportPNG = () => {
+  const handleExportPNG = () => {
     if (!canvasRef.current) return;
 
     try {
       const seal = new CompanySealCanvas(canvasRef.current);
-      seal.exportToPNG('company-seal.png');
+      const filename = config.circularText.trim() || 'company-seal';
+      const sanitizedFilename = filename.replace(/[<>:"/\\|?*]/g, '').trim() || 'company-seal';
+      seal.exportToPNG(`${sanitizedFilename}.png`);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'PNG 내보내기 실패');
       console.error(err);
     }
   };
 
-  useEffect(() => {
-    drawSeal();
-  }, [drawSeal]);
-
   return (
     <div className="flex flex-col gap-4 md:flex-row">
-      {/* Settings Panel - Primary Card */}
       <div className="card-primary flex h-fit flex-1 flex-col gap-4 p-4">
-        {/* Input Fields Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="flex flex-col gap-1">
             <label className="label-base">원형 텍스트</label>
@@ -102,7 +99,6 @@ export const Demo = () => {
           </div>
         </div>
 
-        {/* Slider Controls */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
@@ -137,21 +133,18 @@ export const Demo = () => {
         </div>
       </div>
 
-      {/* Preview Panel - Card Preview */}
       <div className="card-preview flex h-fit shrink-0 flex-col gap-4 p-4 md:w-80">
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-base text-primary">미리보기</h2>
           {error && <span className="text-red-600 text-xs">오류</span>}
         </div>
 
-        {/* Canvas Container */}
         <div className="transparent-layer flex items-center justify-center p-4">
           <canvas ref={canvasRef} />
         </div>
 
-        {/* Export Button */}
-        <Button type="button" onClick={exportPNG} disabled={isDrawing || !!error}>
-          PNG로 내보내기
+        <Button type="button" onClick={handleExportPNG} disabled={!!error}>
+          PNG로 내보내기 →
         </Button>
 
         {error && (
