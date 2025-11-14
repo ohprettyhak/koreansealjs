@@ -35,6 +35,27 @@ const Page = async ({ searchParams }: PageProps) => {
           <NodejsContent />
         </Usage>
       </div>
+
+      <p className="pb-8 text-center font-medium text-neutral-600 text-sm">
+        Made with ❤️ by&nbsp;
+        <a
+          className="border border-transparent px-0.5 transition-colors duration-150 hover:border-neutral-300 hover:bg-neutral-100"
+          href="https://github.com/ohprettyhak"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hak Lee
+        </a>
+        &nbsp;•&nbsp;
+        <a
+          className="border border-transparent px-0.5 transition-colors duration-150 hover:border-neutral-300 hover:bg-neutral-100"
+          href="https://github.com/ohprettyhak/koreansealjs"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          [GitHub]
+        </a>
+      </p>
     </main>
   );
 };

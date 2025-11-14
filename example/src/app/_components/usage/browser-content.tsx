@@ -15,9 +15,9 @@ function App() {
     const drawSeal = async () => {
       const seal = new CompanySeal(canvasRef.current!);
       await seal.draw({
-        circularText: '주식회사 예제',
-        centerText: '대표이사',
-        sealSize: 300,
+        circularText: '주식회사예제',
+        centerText: '株式會社',
+        sealSize: 128,
         strokeWidthRatio: 0.02,
         markerType: 'star',
         fontFamily: 'Noto Serif KR',
@@ -25,7 +25,7 @@ function App() {
     };
 
     drawSeal();
-  }, []);
+}, []);
 
   return <canvas ref={canvasRef} />;
 }`;
