@@ -1,5 +1,11 @@
 # @koreansealjs/react
 
+## 0.0.2
+
+### Patch Changes
+
+- 3281261: Unify class names: `CompanySealCanvas` → `CompanySeal`, `PersonalSealCanvas` → `PersonalSeal`
+
 ## 0.0.1
 
 ### Patch Changes
