@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@napi-rs/canvas'],
   experimental: {
     turbopackFileSystemCacheForDev: true,
-    turbopackFileSystemCacheForBuild: true,
   },
 };
 

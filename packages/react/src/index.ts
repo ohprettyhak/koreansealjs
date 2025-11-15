@@ -1,3 +1,3 @@
 export type { CompanySealConfig, PersonalSealConfig } from '@koreansealjs/shared';
-export { CompanySealCanvas } from './company-seal/index';
-export { PersonalSealCanvas } from './personal-seal/index';
+export { CompanySeal } from './company-seal';
+export { PersonalSeal } from './personal-seal';

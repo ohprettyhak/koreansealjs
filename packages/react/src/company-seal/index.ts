@@ -1,7 +1,7 @@
 import type { CompanySealConfig } from '@koreansealjs/shared';
 import { DEFAULT_SEAL_COLOR } from '@koreansealjs/shared';
 
-export class CompanySealCanvas {
+export class CompanySeal {
   private readonly canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
 
@@ -18,10 +18,32 @@ export class CompanySealCanvas {
     this.ctx = ctx;
   }
 
+  private async waitForFont(fontFamily: string): Promise<void> {
+    if (!fontFamily) return;
+
+    const fontSpec = `600 12px ${fontFamily}`;
+    if (document.fonts.check(fontSpec)) return;
+
+    await document.fonts.ready;
+    if (document.fonts.check(fontSpec)) return;
+
+    try {
+      await document.fonts.load(fontSpec);
+    } catch {}
+
+    const timeout = 5000;
+    const startTime = Date.now();
+    const checkInterval = 20;
+
+    while (Date.now() - startTime < timeout) {
+      if (document.fonts.check(fontSpec)) return;
+      await new Promise(resolve => setTimeout(resolve, checkInterval));
+    }
+    console.warn(`[@koreansealjs] Font "${fontFamily}" did not load within ${timeout}ms`);
+  }
+
   async draw(config: CompanySealConfig): Promise<void> {
     try {
-      await document.fonts.ready;
-
       const {
         circularText,
         centerText,
@@ -31,6 +53,8 @@ export class CompanySealCanvas {
         fontFamily,
         color = DEFAULT_SEAL_COLOR,
       } = config;
+
+      await this.waitForFont(fontFamily);
 
       if (sealSize <= 0 || !Number.isFinite(sealSize)) {
         throw new Error('sealSize must be a positive finite number');
@@ -47,9 +71,6 @@ export class CompanySealCanvas {
       this.canvas.height = canvasSize;
 
       this.ctx.save();
-
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(0, 0, canvasSize, canvasSize);
 
       const cx = canvasSize / 2;
       const cy = canvasSize / 2;
@@ -74,7 +95,7 @@ export class CompanySealCanvas {
       this.ctx.restore();
     } catch (error) {
       this.ctx.restore();
-      console.error('Failed to draw seal:', error);
+      console.error('[@koreansealjs] Failed to draw seal:', error);
       throw error instanceof Error ? error : new Error('Failed to draw seal');
     }
   }
@@ -136,25 +157,30 @@ export class CompanySealCanvas {
   ): void {
     this.ctx.save();
     this.ctx.fillStyle = color;
+    this.ctx.beginPath();
 
     if (type === 'star') {
       this.ctx.translate(x, y);
-      this.ctx.beginPath();
+      const radius = size * 0.27;
+
       for (let i = 0; i < 5; i++) {
         const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-        const r = size * 0.27;
-        const px = r * Math.cos(angle);
-        const py = r * Math.sin(angle);
-        i === 0 ? this.ctx.moveTo(px, py) : this.ctx.lineTo(px, py);
+        const px = radius * Math.cos(angle);
+        const py = radius * Math.sin(angle);
+
+        if (i === 0) {
+          this.ctx.moveTo(px, py);
+        } else {
+          this.ctx.lineTo(px, py);
+        }
       }
+
       this.ctx.closePath();
-      this.ctx.fill();
     } else {
-      this.ctx.beginPath();
       this.ctx.arc(x, y, size * 0.18, 0, Math.PI * 2);
-      this.ctx.fill();
     }
 
+    this.ctx.fill();
     this.ctx.restore();
   }
 
@@ -216,7 +242,7 @@ export class CompanySealCanvas {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Failed to export seal:', error);
+      console.error('[@koreansealjs] Failed to export seal:', error);
       throw error instanceof Error ? error : new Error('Failed to export PNG');
     }
   }

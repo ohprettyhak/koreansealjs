@@ -41,9 +41,6 @@ export class CompanySeal {
       const ctx = this.ctx;
       ctx.save();
 
-      ctx.fillStyle = 'white';
-      ctx.fillRect(0, 0, canvasSize, canvasSize);
-
       const cx = canvasSize / 2;
       const cy = canvasSize / 2;
       const outerR = sealSize / 2 - strokeWidth / 2;
@@ -67,7 +64,7 @@ export class CompanySeal {
       ctx.restore();
     } catch (error) {
       this.ctx.restore();
-      console.error('Failed to draw seal:', error);
+      console.error('[@koreansealjs] Failed to draw seal:', error);
       throw error instanceof Error ? error : new Error('Failed to draw seal');
     }
   }

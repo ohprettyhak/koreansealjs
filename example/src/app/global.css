@@ -1,1 +1,73 @@
 @import "tailwindcss";
+
+@layer base {
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-neutral-950);
+    font-family: var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    background-color: var(--color-white);
+  }
+
+  code {
+    font-family: var(--font-geist-mono), Courier, var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', monospace;
+  }
+
+  .transparent-layer {
+    background: conic-gradient(
+        from 90deg at 50% 50%,
+        transparent 0deg 90deg,
+        var(--color-neutral-200) 90deg 180deg,
+        transparent 180deg 270deg,
+        var(--color-neutral-200) 270deg 360deg
+    );
+    background-size: 8px 8px;
+  }
+}
+
+@layer components {
+  .text-primary {
+    color: var(--color-neutral-950);
+  }
+  
+  .text-secondary {
+    color: var(--color-neutral-600);
+  }
+  
+  .text-tertiary {
+    color: var(--color-neutral-500);
+  }
+
+  .card-primary {
+    background-color: var(--color-neutral-100);
+    border: 1px solid var(--color-neutral-300);
+  }
+  
+  .card-secondary {
+    background-color: var(--color-neutral-200);
+    border: 1px solid var(--color-neutral-400);
+  }
+  
+  .card-preview {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-neutral-300);
+  }
+
+  .label-base {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-neutral-600);
+    letter-spacing: -0.01em;
+  }
+}
