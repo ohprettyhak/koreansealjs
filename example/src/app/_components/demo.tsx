@@ -11,7 +11,7 @@ const DEFAULT_CONFIG: CompanySealConfig = {
   sealSize: 128,
   strokeWidthRatio: 0.02,
   markerType: 'star',
-  fontFamily: 'Pretendard',
+  fontFamily: 'serif',
 };
 
 export const Demo = () => {
@@ -92,9 +92,10 @@ export const Demo = () => {
               value={config.fontFamily}
               onChange={e => setConfig(prev => ({ ...prev, fontFamily: e.target.value }))}
             >
+              <option value="serif">시스템 명조체</option>
+              <option value="Noto Serif KR">Noto Serif KR</option>
               <option value="Pretendard">Pretendard</option>
               <option value="EbsHunminjeongeumSaeron">EbsHunminjeongeumSaeron</option>
-              <option value="Times New Roman">Times New Roman</option>
             </Select>
           </div>
         </div>

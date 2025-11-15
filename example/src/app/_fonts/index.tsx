@@ -1,4 +1,4 @@
-import { Geist_Mono } from 'next/font/google';
+import { Geist_Mono, Nanum_Myeongjo } from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const Pretendard = localFont({
