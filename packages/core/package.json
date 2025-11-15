@@ -1,6 +1,6 @@
 {
   "name": "@koreansealjs/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js canvas-based Korean seal generator",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
