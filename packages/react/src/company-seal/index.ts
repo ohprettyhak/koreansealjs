@@ -39,6 +39,7 @@ export class CompanySeal {
       if (document.fonts.check(fontSpec)) return;
       await new Promise(resolve => setTimeout(resolve, checkInterval));
     }
+    console.warn(`[@koreansealjs] Font "${fontFamily}" did not load within ${timeout}ms`);
   }
 
   async draw(config: CompanySealConfig): Promise<void> {
