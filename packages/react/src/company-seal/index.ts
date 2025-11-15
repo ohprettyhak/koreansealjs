@@ -18,59 +18,27 @@ export class CompanySeal {
     this.ctx = ctx;
   }
 
-  private async ensureFontLoaded(fontFamily: string): Promise<void> {
-    if (!fontFamily || document.fonts.check(`12px ${fontFamily}`)) return;
+  private async waitForFont(fontFamily: string): Promise<void> {
+    if (!fontFamily) return;
+
+    const fontSpec = `600 12px ${fontFamily}`;
+    if (document.fonts.check(fontSpec)) return;
 
     await document.fonts.ready;
-    if (document.fonts.check(`12px ${fontFamily}`)) return;
+    if (document.fonts.check(fontSpec)) return;
 
-    const rule = this.findFontFaceRule(fontFamily);
-    if (rule) {
-      try {
-        const fontFace = new FontFace(fontFamily, rule.src, rule.descriptors);
-        await fontFace.load();
-        document.fonts.add(fontFace);
-        return;
-      } catch (error) {
-        console.warn('[@koreansealjs] Failed to load font:', error);
-      }
-    }
-    
+    try {
+      await document.fonts.load(fontSpec);
+    } catch {}
+
+    const timeout = 5000;
     const startTime = Date.now();
-    while (!document.fonts.check(`12px ${fontFamily}`) && Date.now() - startTime < 5000) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-  }
+    const checkInterval = 20;
 
-  private findFontFaceRule(
-    fontFamily: string,
-  ): { src: string; descriptors: FontFaceDescriptors } | null {
-    for (const sheet of Array.from(document.styleSheets)) {
-      try {
-        for (const rule of Array.from(sheet.cssRules || sheet.rules)) {
-          if (
-            rule instanceof CSSFontFaceRule &&
-            rule.style.getPropertyValue('font-family').replace(/['"]/g, '') === fontFamily
-          ) {
-            const src = rule.style.getPropertyValue('src');
-            const match = src.match(/url\(['"]?([^'"]+)['"]?\)/);
-            if (match) {
-              return {
-                src: `url(${match[1]})`,
-                descriptors: {
-                  weight: rule.style.getPropertyValue('font-weight') || 'normal',
-                  style: rule.style.getPropertyValue('font-style') || 'normal',
-                  display: 'swap',
-                },
-              };
-            }
-          }
-        }
-      } catch (error) {
-        console.warn('[@koreansealjs] Failed to access stylesheet:', error);
-      }
+    while (Date.now() - startTime < timeout) {
+      if (document.fonts.check(fontSpec)) return;
+      await new Promise(resolve => setTimeout(resolve, checkInterval));
     }
-    return null;
   }
 
   async draw(config: CompanySealConfig): Promise<void> {
@@ -85,7 +53,7 @@ export class CompanySeal {
         color = DEFAULT_SEAL_COLOR,
       } = config;
 
-      await this.ensureFontLoaded(fontFamily);
+      await this.waitForFont(fontFamily);
 
       if (sealSize <= 0 || !Number.isFinite(sealSize)) {
         throw new Error('sealSize must be a positive finite number');
