@@ -65,7 +65,7 @@ export class CompanySeal {
       }
 
       const strokeWidth = sealSize * strokeWidthRatio;
-      const canvasSize = Math.ceil(sealSize + strokeWidth);
+      const canvasSize = Math.ceil(sealSize);
 
       this.canvas.width = canvasSize;
       this.canvas.height = canvasSize;
