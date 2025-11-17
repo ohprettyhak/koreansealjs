@@ -1,5 +1,11 @@
 # @koreansealjs/react
 
+## 0.0.3
+
+### Patch Changes
+
+- fa75f23: Ensure the canvas size equals `sealSize` and keep stroke width inside that boundary.
+
 ## 0.0.2
 
 ### Patch Changes
